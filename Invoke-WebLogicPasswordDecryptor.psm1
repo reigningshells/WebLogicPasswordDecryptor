@@ -33,7 +33,11 @@ function Invoke-WebLogicPasswordDecryptor
         $BouncyCastle = '.\BouncyCastle.Crypto.dll'
     }
 
-    Add-Type -Path $BouncyCastle
+    $fileStream = ([System.IO.FileInfo] (Get-Item -Path $BouncyCastle)).OpenRead()
+    $assemblyBytes = New-Object -TypeName byte[] -ArgumentList $fileStream.Length
+    $fileStream.Read($assemblyBytes, 0, $fileStream.Length) | Out-Null
+    $fileStream.Close()
+    $assemblyLoaded = [System.Reflection.Assembly]::Load($assemblyBytes);
 
     $Pass = '0xccb97558940b82637c8bec3c770f86fa3a391a56'
     $Pass = $Pass.ToCharArray()
