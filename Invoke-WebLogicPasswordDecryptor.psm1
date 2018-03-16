@@ -37,7 +37,7 @@ function Invoke-WebLogicPasswordDecryptor
     $assemblyBytes = New-Object -TypeName byte[] -ArgumentList $fileStream.Length
     $fileStream.Read($assemblyBytes, 0, $fileStream.Length) | Out-Null
     $fileStream.Close()
-    $assemblyLoaded = [System.Reflection.Assembly]::Load($assemblyBytes);
+    $assemblyLoaded = [System.Reflection.Assembly]::Load($assemblyBytes)
 
     $Pass = '0xccb97558940b82637c8bec3c770f86fa3a391a56'
     $Pass = $Pass.ToCharArray()
